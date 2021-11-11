@@ -1,0 +1,7 @@
+.container {
+  margin   : 3.75rem 0.25rem;
+  max-width: 60rem;
+  padding  : 0 1.9rem;
+
+  border: 1px solid #c0d5d6;
+}
