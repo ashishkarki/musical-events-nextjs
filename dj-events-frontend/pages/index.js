@@ -1,9 +1,7 @@
-import Layout from '../components/Layout'
+import HomePage from './home'
 
-export default function HomePage() {
-  return (
-    <Layout>
-      <h1>Home</h1>
-    </Layout>
-  )
+function IndexPage() {
+  return <HomePage />
 }
+
+export default IndexPage

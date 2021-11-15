@@ -1,8 +1,9 @@
 import Head from 'next/head'
 
 import styles from '../styles/Layout.module.css'
+import MyHeader from './MyHeader'
 
-const Layout = ({ title, keywords, description, children }) => {
+const MyLayout = ({ title, keywords, description, children }) => {
   return (
     <div>
       <Head>
@@ -11,15 +12,16 @@ const Layout = ({ title, keywords, description, children }) => {
         <meta name="keywords" content={keywords} />
       </Head>
 
+      <MyHeader />
       <div className={styles.container}>{children}</div>
     </div>
   )
 }
 
-Layout.defaultProps = {
+MyLayout.defaultProps = {
   title: 'Music Events | Find great parties',
   keywords: 'music, events, parties',
   description: 'Find the latest musical events and enjoy',
 }
 
-export default Layout
+export default MyLayout
