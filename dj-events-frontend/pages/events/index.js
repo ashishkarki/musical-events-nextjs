@@ -1,10 +1,10 @@
-import Layout from '../../components/Layout'
+import MyLayout from '../../components/MyLayout'
 
 const EventsPage = () => {
   return (
-    <Layout title="Events Index Page">
+    <MyLayout title="Events Index Page">
       <h1>My Events</h1>
-    </Layout>
+    </MyLayout>
   )
 }
 

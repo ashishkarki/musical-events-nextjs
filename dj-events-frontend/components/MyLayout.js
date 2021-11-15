@@ -1,6 +1,7 @@
 import Head from 'next/head'
 
-import styles from '../styles/Layout.module.css'
+import styles from '../styles/MyLayout.module.css'
+import MyFooter from './MyFooter'
 import MyHeader from './MyHeader'
 
 const MyLayout = ({ title, keywords, description, children }) => {
@@ -13,7 +14,10 @@ const MyLayout = ({ title, keywords, description, children }) => {
       </Head>
 
       <MyHeader />
+
       <div className={styles.container}>{children}</div>
+
+      <MyFooter />
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import styles from '../styles/Header.module.css'
+import styles from '../styles/MyHeader.module.css'
 
-function Header() {
+function MyHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -24,4 +24,4 @@ function Header() {
   )
 }
 
-export default Header
+export default MyHeader
