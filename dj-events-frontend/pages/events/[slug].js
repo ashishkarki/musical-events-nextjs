@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
-import Layout from '../../components/Layout'
+import MyLayout from '@/components/MyLayout'
 
 const EventPage = () => {
   const router = useRouter()
   const { slug } = router.query
 
   return (
-    <Layout>
+    <MyLayout>
       <h3>Slug-ID event page</h3>
       <p>slug: {slug}</p>
-    </Layout>
+    </MyLayout>
   )
 }
 

@@ -1,4 +1,4 @@
-import MyLayout from '../../components/MyLayout'
+import MyLayout from '@/components/MyLayout'
 
 const EventsPage = () => {
   return (

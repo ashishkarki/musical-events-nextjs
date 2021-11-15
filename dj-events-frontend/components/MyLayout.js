@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import styles from '../styles/MyLayout.module.css'
+import styles from '@/styles/MyLayout.module.css'
 import MyFooter from './MyFooter'
 import MyHeader from './MyHeader'
 

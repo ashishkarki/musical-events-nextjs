@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import styles from '../styles/MyHeader.module.css'
+import styles from '@/styles/MyHeader.module.css'
 
 function MyHeader() {
   return (

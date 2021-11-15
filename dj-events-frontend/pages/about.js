@@ -1,11 +1,11 @@
-import Layout from '../components/Layout'
+import MyLayout from '@/components/MyLayout'
 
 const AboutPage = () => {
   return (
-    <Layout title="About this Events website">
+    <MyLayout title="About this Events website">
       <h2>About</h2>
       <p>An app to find the latest events.</p>
-    </Layout>
+    </MyLayout>
   )
 }
 
