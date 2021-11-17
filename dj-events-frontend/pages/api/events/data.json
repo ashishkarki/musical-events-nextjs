@@ -1,0 +1,28 @@
+{
+    "events": [
+        {
+            "id": "1",
+            "name": "Event 1",
+            "slug": "event-1",
+            "venue": "Venue 1",
+            "address": "Address 1",
+            "performers": "Performer 1",
+            "date": "Nov 30, 2021",
+            "time": "8:00 PM EST",
+            "description": "Description 1 and manuy more things will happen there... so please go check it out...dot dot",
+            "image": "/images/sample/event1.jpg"
+        },
+        {
+            "id": "2",
+            "name": "Event 2",
+            "slug": "event-2",
+            "venue": "Venue 2",
+            "address": "Address 2, SomePlace, that country",
+            "performers": "Performer 2",
+            "date": "Dec 30, 2021",
+            "time": "10:00 AM EST",
+            "description": "Description 2 and manuy more things will happen there... so please go check it out...dot dot",
+            "image": "/images/sample/event2.jpg"
+        }
+    ]
+}
