@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import EventItem from '../components/EventItem'
 import MyLayout from '../components/MyLayout'
 import { API_URL } from '../config'
@@ -11,7 +13,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      myEvents: myEvents.events,
+      myEvents: myEvents.events.slice(0, 1),
     },
     revalidate: 1, // check if the data is still the same every 1 second, if not, re-fetch
   }
@@ -27,6 +29,12 @@ function IndexPage({ myEvents }) {
       {myEvents.map((myEvent) => (
         <EventItem key={myEvent.id} myEvent={myEvent} />
       ))}
+
+      {myEvents.length > 0 && (
+        <Link href="/events">
+          <a className="btn-secondary">View All Events</a>
+        </Link>
+      )}
     </MyLayout>
   )
 }

@@ -15,7 +15,7 @@ function MyHeader() {
         <ul>
           <li>
             <Link href="/events">
-              <a>Events</a>
+              <a>All Events</a>
             </Link>
           </li>
         </ul>

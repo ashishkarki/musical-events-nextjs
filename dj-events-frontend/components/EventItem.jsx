@@ -14,6 +14,19 @@ function EventItem({ myEvent }) {
           height={100}
         />
       </div>
+
+      <div className={styles.info}>
+        <span>
+          {myEvent.date} at {myEvent.time}
+        </span>
+        <h3>{myEvent.name}</h3>
+      </div>
+
+      <div className={styles.link}>
+        <Link href={`/events/${myEvent.slug}`}>
+          <a className="btn">Details</a>
+        </Link>
+      </div>
     </div>
   )
 }
