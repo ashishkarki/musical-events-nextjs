@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { FaTimes } from 'react-icons/fa'
 
 import styles from '@/styles/Search.module.css'
 
@@ -10,6 +11,14 @@ function Search() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     router.push(`/events/search?term=${term}`)
+
+    // reset the search input
+    // setTerm('')
+  }
+
+  const handleClearSearch = (e) => {
+    e.preventDefault()
+    router.replace('/events')
 
     // reset the search input
     setTerm('')
@@ -25,6 +34,10 @@ function Search() {
           placeholder="Search for an event"
         />
       </form>
+
+      <button type="submit" onClick={handleClearSearch}>
+        <FaTimes className={styles.close} />
+      </button>
     </div>
   )
 }
