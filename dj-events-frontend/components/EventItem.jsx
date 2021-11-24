@@ -2,13 +2,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import styles from '../styles/EventItem.module.css'
+import { dateToLocalString } from '../utils/utils_main'
 
 function EventItem({ myEvent }) {
   return (
     <div className={styles.event}>
       <div className={styles.img}>
         <Image
-          src={myEvent.image ? myEvent.image : '/images/event-default.png'}
+          src={
+            myEvent.image
+              ? myEvent.image.formats.thumbnail.url
+              : '/images/event-default.png'
+          }
           alt={myEvent.title}
           width={170}
           height={100}
@@ -17,7 +22,7 @@ function EventItem({ myEvent }) {
 
       <div className={styles.info}>
         <span>
-          {myEvent.date} at {myEvent.time}
+          {dateToLocalString(myEvent.date)} at {myEvent.time}
         </span>
         <h3>{myEvent.name}</h3>
       </div>

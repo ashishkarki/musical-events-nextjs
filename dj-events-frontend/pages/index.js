@@ -7,13 +7,13 @@ import { API_URL } from '../config'
 // Get the events from the API - only during build time with getStaticProps
 // but check every 1 sec if the events have changed
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`)
   const myEvents = await res.json()
-  console.log('home.js events:', myEvents)
+  // console.log('home.js events:', myEvents)
 
   return {
     props: {
-      myEvents: myEvents.events.slice(0, 1),
+      myEvents: myEvents.slice(0, 1),
     },
     revalidate: 1, // check if the data is still the same every 1 second, if not, re-fetch
   }

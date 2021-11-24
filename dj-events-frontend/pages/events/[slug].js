@@ -8,35 +8,37 @@ import superjson from 'superjson'
 import MyLayout from '@/components/MyLayout'
 import { API_URL } from '../../config'
 import styles from '@/styles/Event.module.css'
+import { dateToLocalString } from '../../utils/utils_main'
 
 export async function getStaticProps({ params }) {
-  console.log('[slug] page, params:', JSON.stringify(params))
-
-  const res = await fetch(`${API_URL}/api/events/${params.slug}`)
+  const res = await fetch(`${API_URL}/events?slug=${params.slug}`)
   const myEventFromApi = await res.json()
+  const stringifiedMyEvent = JSON.parse(JSON.stringify(myEventFromApi))
+  console.log('[slug] page, myEventFromApi:', stringifiedMyEvent)
 
   return {
     props: {
-      myEvent: JSON.parse(JSON.stringify(myEventFromApi)),
+      myEvent: stringifiedMyEvent[0],
     },
     revalidate: 1,
   }
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/events`)
   const myEventsFromApi = await res.json()
 
   const tempJson = superjson.parse(superjson.stringify(myEventsFromApi))
-  console.log('getStaticPaths events:', tempJson)
+  // console.log('[slug] page, getStaticPaths events:', tempJson)
 
-  const paths = tempJson.events.map((event) => {
+  const paths = tempJson.map((event) => {
     return {
       params: {
         slug: event.slug,
       },
     }
   })
+  console.log('[slug] page, getStaticPaths paths:', paths)
 
   return {
     paths,
@@ -60,9 +62,6 @@ const EventPage = ({ myEvent }) => {
 
   return (
     <MyLayout>
-      {/* <h3>Slug-ID event page</h3>
-      <p>slug: {slug}</p>
-      <p>event name: {myEvent.name}</p> */}
       <div className={styles.event}>
         <div className={styles.controls}>
           <Link href={`/events/edit/${myEvent.id}`}>
@@ -76,13 +75,13 @@ const EventPage = ({ myEvent }) => {
         </div>
 
         <span>
-          {myEvent.date} at {myEvent.time}
+          {dateToLocalString(myEvent.date)} at {myEvent.time}
         </span>
         <h1>{myEvent.name}</h1>
         {myEvent.image && (
           <div className={styles.image}>
             <Image
-              src={myEvent.image}
+              src={myEvent.image.formats.medium.url}
               alt={myEvent.name}
               width={960}
               height={600}

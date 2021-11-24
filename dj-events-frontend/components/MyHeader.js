@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import styles from '@/styles/MyHeader.module.css'
+import Search from './Search'
 
 function MyHeader() {
   return (
@@ -10,6 +11,8 @@ function MyHeader() {
           <a>Musical Events</a>
         </Link>
       </div>
+
+      <Search />
 
       <nav>
         <ul>

@@ -3,13 +3,13 @@ import EventItem from '../../components/EventItem'
 import { API_URL } from '../../config'
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/events?_sort=date:ASC`)
   const myEvents = await res.json()
-  console.log('home.js events:', myEvents)
+  // console.log('home.js events:', myEvents)
 
   return {
     props: {
-      myEvents: myEvents.events,
+      myEvents,
     },
     revalidate: 1, // check if the data is still the same every 1 second, if not, re-fetch
   }
