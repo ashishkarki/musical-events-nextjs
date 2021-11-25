@@ -35,7 +35,7 @@ function Search() {
         />
       </form>
 
-      <button type="submit" onClick={handleClearSearch}>
+      <button type="submit" onClick={handleClearSearch} className="btn">
         <FaTimes className={styles.close} />
       </button>
     </div>

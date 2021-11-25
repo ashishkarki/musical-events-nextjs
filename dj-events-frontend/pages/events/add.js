@@ -6,8 +6,14 @@ import MyLayout from '../../components/MyLayout'
 import { API_URL } from '@/config/index'
 
 import styles from '@/styles/Add.module.css'
+import { ToastHelper } from '../../utils/toast_helper'
+import { dateToISOString, logger } from '../../utils/utils_main'
 
 function AddPage() {
+  const [toast, setToast] = useState({
+    message: 'Type the fields and press the button',
+    type: 'info',
+  })
   const [addEvent, setAddEvent] = useState({
     name: '',
     description: '',
@@ -16,22 +22,54 @@ function AddPage() {
     address: '',
     date: '',
     time: '',
-    image: '',
+    // image: 'dummy image name',
   })
   const router = useRouter()
 
   const handleAddSubmit = async (e) => {
     e.preventDefault()
+
+    // validation
+    const hasEmptyFields = Object.values(addEvent).some((value) => value === '')
+    logger('AddPage, handleAddSubmit - hasEmptyFields::', hasEmptyFields)
+
+    if (hasEmptyFields) {
+      setToast({
+        message: 'Please fill all the fields',
+        type: 'error',
+      })
+
+      return
+    }
+
+    // post the new event
+    const tempEventWithMassagedData = {
+      ...addEvent,
+      date: dateToISOString(addEvent.date),
+    }
+    logger(
+      'AddPage, handleAddSubmit - tempEventWithMassagedData::',
+      JSON.stringify(tempEventWithMassagedData),
+    )
     const res = await fetch(`${API_URL}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(addEvent),
+      body: JSON.stringify(tempEventWithMassagedData),
     })
-    const data = await res.json()
+    logger('AddPage, handleAddSubmit - res::', res)
 
-    router.push('/events')
+    if (!res.ok) {
+      setToast({
+        message: 'Something went wrong',
+        type: 'error',
+      })
+      return
+    }
+
+    const newlyAddedEvent = await res.json()
+    router.push(`/events/${newlyAddedEvent.slug}`)
   }
 
   const handleInputChange = (e) => {
@@ -47,6 +85,8 @@ function AddPage() {
       <Link href="/events">Go back to all Events</Link>
       <h2>Add a new Event</h2>
 
+      <ToastHelper message={toast.message} type={toast.type} />
+
       <form onSubmit={handleAddSubmit} className={styles.form}>
         <div className={styles.grid}>
           <div>
@@ -57,6 +97,7 @@ function AddPage() {
               name="name"
               value={addEvent.name}
               onChange={handleInputChange}
+              placeholder="Event Name"
             />
           </div>
           <div>
@@ -67,6 +108,7 @@ function AddPage() {
               id="performers"
               value={addEvent.performers}
               onChange={handleInputChange}
+              placeholder="Performers"
             />
           </div>
           <div>
@@ -77,6 +119,7 @@ function AddPage() {
               id="venue"
               value={addEvent.venue}
               onChange={handleInputChange}
+              placeholder="Venue"
             />
           </div>
           <div>
@@ -87,6 +130,7 @@ function AddPage() {
               id="address"
               value={addEvent.address}
               onChange={handleInputChange}
+              placeholder="Address"
             />
           </div>
           <div>
@@ -97,6 +141,7 @@ function AddPage() {
               id="date"
               value={addEvent.date}
               onChange={handleInputChange}
+              placeholder="Date"
             />
           </div>
           <div>
@@ -107,6 +152,7 @@ function AddPage() {
               id="time"
               value={addEvent.time}
               onChange={handleInputChange}
+              placeholder="Time"
             />
           </div>
         </div>
@@ -119,10 +165,16 @@ function AddPage() {
             id="description"
             value={addEvent.description}
             onChange={handleInputChange}
+            placeholder="Event Description"
           ></textarea>
         </div>
 
-        <input type="submit" value="Add Event" className="btn" />
+        <input
+          type="submit"
+          value="Add Event"
+          className="btn"
+          onClick={handleAddSubmit}
+        />
       </form>
     </MyLayout>
   )
