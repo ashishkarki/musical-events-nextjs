@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { v4 as uuidv4 } from 'uuid'
 
 export const ToastHelper = ({
   message = 'Check with your admin',
   type = 'info',
 }) => {
   useEffect(() => {
-    toast(message, { type, toastId: uuidv4() })
+    toast(message, { type })
   }, [message, type])
 
   return (

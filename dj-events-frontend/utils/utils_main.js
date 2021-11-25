@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 /**
  * @param {*} date
  * @returns date in local format like 12/29/2021
@@ -14,6 +16,12 @@ export const dateToLocalString = (date) => {
  */
 export const dateToISOString = (date) => {
   const dateString = new Date(date).toISOString()
+
+  return dateString
+}
+
+export const dateToMomentFormat = (date, formatStr = 'yyyy-MM-DD') => {
+  const dateString = moment(date).format(formatStr)
 
   return dateString
 }
