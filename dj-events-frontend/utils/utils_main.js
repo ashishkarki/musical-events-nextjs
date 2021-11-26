@@ -27,5 +27,10 @@ export const dateToMomentFormat = (date, formatStr = 'yyyy-MM-DD') => {
 }
 
 export const logger = (...args) => {
-  console.log(...args)
+  if (
+    process.env.NODE_ENV !== 'production' ||
+    process.env.NODE_ENV !== 'prod'
+  ) {
+    console.log(...args)
+  }
 }

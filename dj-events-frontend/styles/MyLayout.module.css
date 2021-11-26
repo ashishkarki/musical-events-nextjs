@@ -1,8 +1,7 @@
 .container {
   margin   : 3.75rem auto;
-  /* 3.75rem 0.25rem; */
   max-width: 95vw;
-  padding  : 0 2rem;
+  padding  : 1.5rem;
 
   border: 1px solid #c0d5d6;
 }

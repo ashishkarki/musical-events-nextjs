@@ -90,7 +90,7 @@ const EventPage = ({ myEvent }) => {
         <div className={styles.controls}>
           <Link href={`/events/edit/${myEvent.id}`}>
             <a>
-              <FaPencilAlt /> Edit Event
+              <FaPencilAlt /> <span>Edit Event</span>
             </a>
           </Link>
           <a
@@ -98,7 +98,7 @@ const EventPage = ({ myEvent }) => {
             className={styles.delete}
             onClick={() => deleteEvent(myEvent.id)}
           >
-            <FaTimes /> Delete Event
+            <FaTimes /> <span>Delete Event</span>
           </a>
         </div>
 

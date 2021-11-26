@@ -5,7 +5,7 @@ import Link from 'next/link'
 import MyLayout from '../../components/MyLayout'
 import { API_URL } from '@/config/index'
 
-import styles from '@/styles/Add.module.css'
+import styles from '@/styles/Form.module.css'
 import { ToastHelper } from '../../utils/toast_helper'
 import { dateToISOString, logger } from '../../utils/utils_main'
 

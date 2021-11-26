@@ -7,7 +7,7 @@ import Image from 'next/image'
 import MyLayout from '@/components/MyLayout'
 import { API_URL } from '@/config/index'
 
-import styles from '@/styles/Add.module.css'
+import styles from '@/styles/Form.module.css'
 import { ToastHelper } from '@/utils/toast_helper'
 import {
   dateToISOString,
@@ -15,6 +15,8 @@ import {
   dateToMomentFormat,
   logger,
 } from '@/utils/utils_main'
+import MyModal from '@/components/MyModal'
+import ImageUpload from '@/components/ImageUpload'
 
 export async function getServerSideProps(context) {
   const { eventId } = context.params
@@ -28,24 +30,25 @@ export async function getServerSideProps(context) {
   }
 }
 
-function EditEventPage({ event }) {
+function EditEventPage({ event: myEvent }) {
   const [toast, setToast] = useState({
     message: 'Type the fields and press the button',
     type: 'info',
   })
   const [addEvent, setAddEvent] = useState({
-    name: event.name,
-    description: event.description,
-    performers: event.performers,
-    venue: event.venue,
-    address: event.address,
-    date: dateToLocalString(event.date),
-    time: event.time,
+    name: myEvent.name,
+    description: myEvent.description,
+    performers: myEvent.performers,
+    venue: myEvent.venue,
+    address: myEvent.address,
+    date: dateToLocalString(myEvent.date),
+    time: myEvent.time,
     // image: 'dummy image name',
   })
   const [imgPreview, setImgPreview] = useState(
-    event.image ? event.image.formats.thumbnail.url : null,
+    myEvent.image ? myEvent.image.formats.thumbnail.url : null,
   )
+  const [showModal, setShowModal] = useState(false)
 
   const router = useRouter()
 
@@ -70,18 +73,15 @@ function EditEventPage({ event }) {
       ...addEvent,
       date: dateToISOString(addEvent.date),
     }
-    logger(
-      'EditEventPage, handleAddSubmit - tempEventWithMassagedData::',
-      JSON.stringify(tempEventWithMassagedData),
-    )
-    const res = await fetch(`${API_URL}/events/${event.id}`, {
+
+    const res = await fetch(`${API_URL}/events/${myEvent.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(tempEventWithMassagedData),
     })
-    logger('EditEventPage, handleAddSubmit - res::', res)
+    // logger('EditEventPage, handleAddSubmit - res::', res)
 
     if (!res.ok) {
       setToast({
@@ -101,6 +101,14 @@ function EditEventPage({ event }) {
       ...addEvent,
       [name]: value,
     })
+  }
+
+  const imgUploadDone = async (eventId) => {
+    const res = await fetch(`${API_URL}/events/${eventId}`)
+    const event = await res.json()
+
+    setImgPreview(event.image.formats.thumbnail.url) // update the preview image
+    setShowModal(false) // close the modal
   }
 
   return (
@@ -217,10 +225,17 @@ function EditEventPage({ event }) {
       )}
 
       <div>
-        <button className="btn-secondary">
+        <button className="btn-secondary" onClick={() => setShowModal(true)}>
           <FaImage /> Set Image
         </button>
       </div>
+
+      <MyModal show={showModal} onClose={() => setShowModal(false)}>
+        <ImageUpload
+          eventId={myEvent.id}
+          uploadDone={(eventId) => imgUploadDone(eventId)}
+        />
+      </MyModal>
     </MyLayout>
   )
 }
