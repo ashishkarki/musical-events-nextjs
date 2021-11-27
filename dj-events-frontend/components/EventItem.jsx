@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import styles from '../styles/EventItem.module.css'
-import { dateToLocalString } from '../utils/utils_main'
+import styles from '@/styles/EventItem.module.css'
+import { dateToLocalString } from '@/utils/utils_main'
 
 function EventItem({ myEvent }) {
   return (

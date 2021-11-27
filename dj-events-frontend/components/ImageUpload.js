@@ -4,6 +4,7 @@ import { API_URL } from '@/config/index'
 
 function ImageUpload({ eventId, uploadDone }) {
   const [image, setImage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleImgUploadSubmit = async (e) => {
     e.preventDefault()
@@ -14,10 +15,14 @@ function ImageUpload({ eventId, uploadDone }) {
     formData.append('refId', eventId)
     formData.append('field', 'image')
 
+    setLoading(true)
+
     const res = await fetch(`${API_URL}/upload`, {
       method: 'POST',
       body: formData,
     })
+
+    setLoading(false)
 
     if (res.ok) {
       uploadDone(eventId)
@@ -31,13 +36,17 @@ function ImageUpload({ eventId, uploadDone }) {
   return (
     <div className={styles.form}>
       <h1>Upload Event Image</h1>
-      <form onSubmit={handleImgUploadSubmit}>
-        <div className={styles.file}>
-          <input type="file" name="file" onChange={handleFileChange} />
-        </div>
+      {loading ? (
+        <p>Uploading...</p>
+      ) : (
+        <form onSubmit={handleImgUploadSubmit}>
+          <div className={styles.file}>
+            <input type="file" name="file" onChange={handleFileChange} />
+          </div>
 
-        <input type="submit" value="Upload" className="btn" />
-      </form>
+          <input type="submit" value="Upload" className="btn" />
+        </form>
+      )}
     </div>
   )
 }

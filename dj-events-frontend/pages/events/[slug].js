@@ -8,7 +8,7 @@ import superjson from 'superjson'
 import MyLayout from '@/components/MyLayout'
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Event.module.css'
-import { dateToLocalString } from '@/utils/utils_main'
+import { dateToLocalString, logger } from '@/utils/utils_main'
 import { useState } from 'react'
 import { ToastHelper } from '@/utils/toast_helper'
 
@@ -16,7 +16,7 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`${API_URL}/events?slug=${params.slug}`)
   const myEventFromApi = await res.json()
   const stringifiedMyEvent = JSON.parse(JSON.stringify(myEventFromApi))
-  console.log('[slug] page, myEventFromApi:', stringifiedMyEvent)
+  // logger('[slug] page, myEventFromApi:', stringifiedMyEvent)
 
   return {
     props: {
@@ -40,7 +40,7 @@ export async function getStaticPaths() {
       },
     }
   })
-  console.log('[slug] page, getStaticPaths paths:', paths)
+  // logger('[slug] page, getStaticPaths paths:', paths)
 
   return {
     paths,
@@ -63,7 +63,7 @@ const EventPage = ({ myEvent }) => {
       })
 
       const myEventFromApi = await res.json()
-      console.log('[slug] page, deleteEvent data:', myEventFromApi)
+      // logger('[slug] page, deleteEvent data:', myEventFromApi)
 
       if (!res.ok) {
         setToast({

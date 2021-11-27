@@ -2,8 +2,8 @@ import MyLayout from '@/components/MyLayout'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import qs from 'qs'
-import EventItem from '../../components/EventItem'
-import { API_URL } from '../../config'
+import EventItem from '@/components/EventItem'
+import { API_URL } from '@/config/index'
 
 export async function getServerSideProps({ query: { term } }) {
   const parameterizedQuery = qs.stringify({

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { format, parseISO } from 'date-fns'
 
 /**
  * @param {*} date
@@ -20,10 +20,20 @@ export const dateToISOString = (date) => {
   return dateString
 }
 
-export const dateToMomentFormat = (date, formatStr = 'yyyy-MM-DD') => {
-  const dateString = moment(date).format(formatStr)
+// export const dateToMomentFormat = (date, formatStr = 'yyyy-MM-DD') => {
+//   const dateString = moment(date).format(formatStr)
 
-  return dateString
+//   return dateString
+// }
+
+export const dateToFormattedDate = (date, formatStr = 'yyyy-MM-dd') => {
+  if (!!!date) {
+    date = dateToISOString(new Date())
+  }
+
+  const formattedDate = format(parseISO(date), formatStr)
+
+  return formattedDate
 }
 
 export const logger = (...args) => {

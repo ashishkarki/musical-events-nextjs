@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import MyLayout from '../../components/MyLayout'
+import MyLayout from '@/components/MyLayout'
 import { API_URL } from '@/config/index'
 
 import styles from '@/styles/Form.module.css'
-import { ToastHelper } from '../../utils/toast_helper'
-import { dateToISOString, logger } from '../../utils/utils_main'
+import { ToastHelper } from '@/utils/toast_helper'
+import { dateToISOString, logger } from '@/utils/utils_main'
 
 function AddPage() {
   const [toast, setToast] = useState({

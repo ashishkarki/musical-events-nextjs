@@ -10,9 +10,9 @@ import { API_URL } from '@/config/index'
 import styles from '@/styles/Form.module.css'
 import { ToastHelper } from '@/utils/toast_helper'
 import {
+  dateToFormattedDate,
   dateToISOString,
   dateToLocalString,
-  dateToMomentFormat,
   logger,
 } from '@/utils/utils_main'
 import MyModal from '@/components/MyModal'
@@ -41,7 +41,7 @@ function EditEventPage({ event: myEvent }) {
     performers: myEvent.performers,
     venue: myEvent.venue,
     address: myEvent.address,
-    date: dateToLocalString(myEvent.date),
+    date: myEvent.date,
     time: myEvent.time,
     // image: 'dummy image name',
   })
@@ -173,7 +173,7 @@ function EditEventPage({ event: myEvent }) {
               type="date"
               name="date"
               id="date"
-              value={dateToMomentFormat(addEvent.date)}
+              value={dateToFormattedDate(addEvent.date)}
               onChange={handleInputChange}
               placeholder="Date"
             />
